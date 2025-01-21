@@ -1,0 +1,60 @@
+Project Overview: F1 Racing Performance Analysis
+
+Project Objective
+The goal of this project is to analyze and visualize Formula 1 race data, focusing on key metrics such as driver performance, fastest lap speeds, and race results. The analysis aims to uncover trends over the years and identify which drivers and teams have been the most successful.
+
+
+Data Sources
+The data for this project was sourced from multiple F1-related CSV files, containing information about:
+
+Race results: Positions, times, laps, and driver details.
+Drivers and Constructors: Information about F1 drivers and teams (constructors).
+Grand Prix: Details about each race event.
+
+
+Data Cleaning & Preprocessing
+Handling Missing Data: Rows with missing or incorrect values were removed or corrected.
+Renaming Columns: Column names were renamed for better readability and clarity.
+Data Conversion: Ensured that columns such as year, fastestLapSpeed, and gp_name were in the appropriate data types (e.g., numeric).
+
+
+
+Data Analysis
+Driver Wins
+Goal: Identify the drivers with the most race wins.
+Method: Filtered data to include only first-place finishes (positionOrder = 1).
+Result: Counted wins for each driver and displayed the most successful drivers.
+
+Performance Analysis
+Goal: Explore the relationship between starting position (grid) and finishing position (positionOrder).
+Method: Visualized how drivers’ starting positions correlate with their final race positions.
+
+Grand Prix Speed Trends
+Goal: Analyze average fastest lap speeds across different Grand Prix over the years.
+Method: Grouped the data by race name (gp_name) and year, then calculated the mean fastest lap speed for each group.
+
+
+Data Visualization
+1. Bar Plot - Most GP Wins by Driver
+Purpose: Display the drivers with the most wins.
+Insight: Shows the most successful drivers in terms of race wins.
+
+2. Scatter Plot - Starting Position vs. Finishing Position
+Purpose: Explore how starting positions influence race outcomes.
+Insight: Understand how critical a good starting position is for a driver’s success.
+
+3. FacetGrid - Fastest Lap Speed Trends
+Purpose: Show the evolution of the fastest lap speed at individual Grand Prix over the years.
+Insight: Provides a view of how the car speeds have evolved over time at each race.
+
+Key Findings & Insights
+Driver Performance: Top drivers can consistently perform well, with a noticeable trend in race wins for a select few.
+
+Team Performance: Some teams (like Red Bull) show dominance in both driver and constructor standings.
+
+Speed Trends: Fastest lap speeds have been increasing over the years, indicating advancements in car technology.
+
+
+Conclusion
+This project provides a comprehensive overview of F1 racing performance, focusing on key aspects such as driver success, race results, and technological progress in terms of lap speeds. By analyzing the data, we can better understand how starting positions, team strategy, and car technology influence race outcomes.
+
