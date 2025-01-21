@@ -12,4 +12,18 @@ The goal of this project is to analyze and visualize Formula 1 race data, focusi
 The data for this project is sourced from the Kaggle dataset:
 
 - **Dataset Link:**[F1 datasets](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
-- 
+ 
+
+## Schema
+
+```python
+#import all packages and set plots to be embedded in line
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sb
+
+%matplotlib inline
+
+```
