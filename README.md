@@ -14,7 +14,7 @@ The data for this project is sourced from the Kaggle dataset:
 - **Dataset Link:**[F1 datasets](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
  
 
-## Schema
+
 
 ```python
 #import all packages and set plots to be embedded in line
@@ -27,3 +27,12 @@ import seaborn as sb
 %matplotlib inline
 
 ```
+
+## Data Cleaning & Preprocessing
+### Handling Missing Data: Rows with missing or incorrect values were removed or corrected.
+### Renaming Columns: Column names were renamed for better readability and clarity.
+### Data Conversion: Ensured that columns such as year, fastestLapSpeed, and gp_name were in the appropriate data types (e.g., numeric).
+
+
+
+```python
