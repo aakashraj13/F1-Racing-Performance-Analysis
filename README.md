@@ -207,7 +207,7 @@ plt.show()
 
 ```
 
-### new dataframe of top 10 GP winners
+### New dataframe of top 10 GP winners
 ```python
 top10drivers = driver_winner.head(10)
 
@@ -302,3 +302,17 @@ g.fig.suptitle('Average Speed During Fastest Lap at Individual GPs ')
 plt.show()
 
 ```
+## Key Findings & Insights
+### Driver Performance: 
+Top drivers can consistently perform well, with a noticeable trend in race wins for a select few.
+
+### Team Performance: 
+Some teams (like Red Bull) show dominance in both driver and constructor standings.
+
+### Speed Trends:
+Fastest lap speeds have been increasing over the years, indicating advancements in car technology.
+
+
+## Conclusion
+This project provides a comprehensive overview of F1 racing performance, focusing on key aspects such as driver success, race results, and technological progress in terms of lap speeds. By analyzing the data, we can better understand how starting positions, team strategy, and car technology influence race outcomes.
+ 
