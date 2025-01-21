@@ -122,8 +122,183 @@ print(df.shape)
 
 #info()
 df.info()
+
+#head()
+df.head(8)
+
 #head()
 
 df.head(8)
+
+```
+## Data Visualization
+### 1. Bar Plot
+Most GP Wins by Driver
+Purpose: Display the drivers with the most wins.
+Insight: Shows the most successful drivers in terms of race wins.
+
+### 2. Scatter Plot
+Starting Position vs. Finishing Position
+Purpose: Explore how starting positions influence race outcomes.
+Insight: Understand how critical a good starting position is for a driver’s success.
+
+### 3. FacetGrid 
+Fastest Lap Speed Trends
+Purpose: Show the evolution of the fastest lap speed at individual Grand Prix over the years.
+Insight: Provides a view of how the car speeds have evolved over time at each race.
+
+
+## Data Analysis
+### Driver Wins
+Goal: Identify the drivers with the most race wins.
+Method: Filtered data to include only first-place finishes (positionOrder = 1).
+Result: Counted wins for each driver and displayed the most successful drivers.
+
+```python
+
+import seaborn as sb
+import matplotlib.pyplot as plt
+
+# Set seaborn color palette
+sb.set_palette('deep')
+
+# Adjust figure size
+plt.rcParams['figure.figsize'] = 10, 6
+
+# Drop non-numeric rows from 'positionOrder'
+df = df[df['positionOrder'] != 'positionOrder']
+
+# Convert 'positionOrder' to numeric
+df['positionOrder'] = pd.to_numeric(df['positionOrder'], errors='coerce')
+
+# Drop rows where 'positionOrder' became NaN
+df.dropna(subset=['positionOrder'], inplace=True)
+
+print(df['positionOrder'].unique())  # Should now only have valid numeric values
+
+driver_winner = (
+    df.loc[df['positionOrder'] == 1]
+    .groupby('driverRef')['positionOrder']
+    .count()
+    .sort_values(ascending=False)
+    .to_frame()
+    .reset_index()
+)
+print(driver_winner.head())  # Check the resulting DataFrame
+
+```
+### Create the barplot for driver winner 
+
+```python
+import seaborn as sb
+import matplotlib.pyplot as plt
+
+# Create the barplot
+sb.barplot(data=driver_winner, y='driverRef', x='positionOrder',color = 'green', alpha=0.8)
+
+# Set plot title and labels
+plt.title('Most GP Winner in F1')
+plt.ylabel('Driver Name')
+plt.xlabel('Number of GP Wins')
+plt.yticks([])  # Remove y-ticks for cleaner presentation
+
+# Show the plot
+plt.show()
+
+```
+
+### new dataframe of top 10 GP winners
+```python
+top10drivers = driver_winner.head(10)
+
+print(top10drivers)
+
+# top 10 drivers plot
+
+sb.barplot(data = top10drivers,  y= 'driverRef', x = 'positionOrder', color = 'blue', alpha = 0.8, linewidth = .8, edgecolor = 'black')
+plt.title('Most GP Winner in F1')
+plt.ylabel('Driver Name')
+plt.xlabel('Number of GP wins');
+
+```
+
+
+## GP constructors winners 
+```python
+constructor_winner = (df.loc[df['positionOrder'] == 1]  # Use square brackets
+                      .groupby('constructor_name')['positionOrder']
+                      .count()
+                      .sort_values(ascending=False).to_frame() 
+                      .reset_index()
+)
+
+# top 10 constructor wins
+
+top10constructor = constructor_winner.head(10)
+
+print(top10constructor)
+
+#constructor wins plot
+
+sb.barplot(data = top10constructor, y='constructor_name', x = 'positionOrder', color = 'yellow',
+           alpha = 0.8, linewidth = .8, edgecolor = 'black')
+plt.title('Most GP wins for Constructors')
+plt.ylabel('constructor_name')
+plt.xlabel('Number of GP wins');
+
+```
+
+## Performance Analysis
+Goal: Explore the relationship between starting position (grid) and finishing position (positionOrder).
+Method: Visualized how drivers’ starting positions correlate with their final race positions.
+
+```python
+# Ensure data is numeric
+df['grid'] = pd.to_numeric(df['grid'], errors='coerce')
+df['positionOrder'] = pd.to_numeric(df['positionOrder'], errors='coerce')
+
+# Filter out rows with grid = 0
+df_no_zero = df[df['grid'] != 0]
+
+# Create the scatterplot with regression line
+plt.figure(figsize=[12, 7])
+sb.regplot(data=df_no_zero, x='grid', y='positionOrder', 
+           x_jitter=0.3, y_jitter=0.3, scatter_kws={'alpha': 1/5})
+plt.title('Starting Position vs. Finish Place')
+plt.ylabel('Finish Place')
+plt.xlabel('Starting Position')
+plt.show()
+
+```
+## Grand Prix Speed Trends
+Goal: Analyze average fastest lap speeds across different Grand Prix over the years.
+Method: Grouped the data by race name (gp_name) and year, then calculated the mean fastest lap speed for each group.
+
+```python
+
+df['gp_name'] = df['gp_name'].astype(str)
+print(df['gp_name'].unique())
+
+df_cleaned = df[df['gp_name'].notna() & (df['gp_name'] != '')]
+
+# Check again
+print(df_cleaned['gp_name'].unique())
+
+
+df_speed = df_cleaned[df_cleaned['year'] >= 2004]
+df_group_speed = df_speed.groupby(['gp_name', 'year'])['fastestLapSpeed'].mean().to_frame().reset_index()
+
+# Create a FacetGrid
+g = sb.FacetGrid(data=df_group_speed, col='gp_name', col_wrap=5)
+g.map(plt.scatter, 'year', 'fastestLapSpeed', alpha=0.8, linewidth=0.8, edgecolor='black', s=100)
+g.set_titles("{col_name}")
+g.set_xlabels('Year')
+g.set_ylabels('Average Fastest Speed (km/h)')
+
+# Adjust layout and title
+
+g.fig.suptitle('Average Speed During Fastest Lap at Individual GPs ')
+
+plt.show()
 
 ```
